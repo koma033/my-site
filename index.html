@@ -655,7 +655,26 @@
     .gif-variant-media video,
     .preview-frame video {
       cursor: zoom-in;
-    }
+    }@media (max-width: 600px) {
+  /* Фото-услуги: нормальный вид на телефоне */
+  .photo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .photo-grid .gallery-item {
+    height: auto !important;
+  }
+
+  .photo-grid .gallery-media {
+    height: auto !important;
+    aspect-ratio: 4 / 3;
+  }
+
+  .photo-grid .gallery-media img {
+    object-fit: contain !important;
+  }
+}
+
   </style>
 </head>
 
@@ -1330,4 +1349,5 @@
   </script>
 </body>
 </html>
+
 
