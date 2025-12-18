@@ -1112,45 +1112,60 @@
     });
   </script>
 
-  <!-- JS: GIF tabs -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const cards = document.querySelectorAll('.gif-variant');
+  <!-- JS: GIF tabs + arrows carousel -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.gif-variant').forEach(card => {
+    const tabs = Array.from(card.querySelectorAll('.gif-tab'));
+    const video = card.querySelector('.gif-media-video');
+    const title = card.querySelector('.gif-meta-title');
+    const desc = card.querySelector('.gif-meta-desc');
 
-      cards.forEach((card) => {
-        const tabs = card.querySelectorAll('.gif-tab');
-        const videoEl = card.querySelector('video.gif-media-video');
-        const titleEl = card.querySelector('.gif-meta-title');
-        const descEl = card.querySelector('.gif-meta-desc');
+    let index = tabs.findIndex(t => t.classList.contains('active'));
+    if (index < 0) index = 0;
 
-        tabs.forEach((tab) => {
-          tab.addEventListener('click', (e) => {
-            e.stopPropagation();
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
+    function apply(i) {
+      index = (i + tabs.length) % tabs.length;
+      const tab = tabs[index];
 
-            const src = tab.dataset.src;
-            const title = tab.dataset.title || 'Variant';
-            const desc = tab.dataset.desc || '';
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
 
-            videoEl.src = src;
-            try { videoEl.currentTime = 0; videoEl.play(); } catch (e) {}
+      video.src = tab.dataset.src;
+      try { video.currentTime = 0; video.play(); } catch(e){}
 
-            titleEl.textContent = title;
-            descEl.textContent = desc;
-          });
-        });
+      title.textContent = tab.dataset.title || 'Standard';
+      desc.textContent = tab.dataset.desc || '';
+    }
 
-        const active = card.querySelector('.gif-tab.active') || tabs[0];
-        if (active) {
-          videoEl.src = active.dataset.src;
-          try { videoEl.play(); } catch (e) {}
-          titleEl.textContent = active.dataset.title || 'Standard';
-          descEl.textContent = active.dataset.desc || '';
-        }
+    // клики по табам
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', e => {
+        e.stopPropagation();
+        apply(i);
       });
     });
-  </script>
+
+    // стрелки
+    const prev = card.querySelector('.gif-arrow.prev');
+    const next = card.querySelector('.gif-arrow.next');
+
+    if (prev) prev.addEventListener('click', e => {
+      e.stopPropagation();
+      apply(index - 1);
+    });
+
+    if (next) next.addEventListener('click', e => {
+      e.stopPropagation();
+      apply(index + 1);
+    });
+
+    // инициализация
+    apply(index);
+  });
+});
+</script>
+
 
   <!-- JS: Lightbox viewer (img + video) + стрелки + свайп -->
   <script>
