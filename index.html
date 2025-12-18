@@ -1253,16 +1253,63 @@
       }
 
       function openLightboxFromNode(node) {
-        items = [];
-        currentIndex = 0;
+  items = [];
+  currentIndex = 0;
 
-        const carousel = node.closest('.carousel');
-        if (carousel) {
-          const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
-          slides.forEach((s) => {
-            const it = extractItemFromSlide(s);
-            if (it) items.push(it);
-          });
+  // ✅ 1) ЕСЛИ ЭТО GIF-КАРТОЧКА — берём варианты из табов
+  const gifCard = node.closest('.gif-variant');
+  if (gifCard) {
+    const tabs = Array.from(gifCard.querySelectorAll('.gif-tab'));
+    tabs.forEach((t) => {
+      items.push({
+        type: 'video',
+        src: t.dataset.src,
+        title: (t.dataset.title || 'Variant') + (t.dataset.desc ? ' · ' + t.dataset.desc : '')
+      });
+    });
+
+    const activeTab = gifCard.querySelector('.gif-tab.active');
+    if (activeTab) {
+      const idx = tabs.findIndex(t => t === activeTab);
+      currentIndex = Math.max(0, idx);
+    } else {
+      currentIndex = 0;
+    }
+  } else {
+    // ✅ 2) ЕСЛИ ЭТО ОБЫЧНАЯ КАРУСЕЛЬ (hero/фото) — как было
+    const carousel = node.closest('.carousel');
+    if (carousel) {
+      const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+      slides.forEach((s) => {
+        const it = extractItemFromSlide(s);
+        if (it) items.push(it);
+      });
+
+      const slide = node.closest('.carousel-slide');
+      if (slide) {
+        const idx = slides.findIndex(s => s === slide);
+        currentIndex = Math.max(0, idx);
+      } else {
+        currentIndex = 0;
+      }
+    } else {
+      // ✅ 3) ОДИНОЧНЫЙ img/video — как было
+      const tag = node.tagName.toLowerCase();
+      if (tag === 'img') items = [{ type: 'img', src: node.currentSrc || node.src, title: getTitleFromNode(node) }];
+      if (tag === 'video') items = [{ type: 'video', src: node.currentSrc || node.src, title: getTitleFromNode(node) }];
+      currentIndex = 0;
+    }
+  }
+
+  if (!items.length) return;
+
+  document.body.classList.add('lb-open');
+  lb.classList.add('show');
+  lb.setAttribute('aria-hidden', 'false');
+
+  render(currentIndex);
+}
+
 
           const slide = node.closest('.carousel-slide');
           if (slide) {
@@ -1365,3 +1412,4 @@
   </script>
 </body>
 </html>
+
