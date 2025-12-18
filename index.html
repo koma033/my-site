@@ -1202,17 +1202,22 @@
           lbMedia.appendChild(img);
         } else {
   const v = document.createElement('video');
-  v.src = item.src;
-  v.autoplay = true;
-  v.loop = true;
-  v.muted = true;
-  v.playsInline = true;
-  v.controls = false;        // ❌ НЕТ контролов
-  v.disablePictureInPicture = true;
-  v.setAttribute('controlslist', 'nodownload nofullscreen noremoteplayback');
+v.src = item.src;
+v.autoplay = true;
+v.loop = true;
+v.muted = true;
+v.playsInline = true;
 
-  lbMedia.appendChild(v);
-  try { v.play(); } catch (e) {}
+v.controls = false;
+v.removeAttribute('controls');
+v.setAttribute('playsinline', 'true');
+
+v.disablePictureInPicture = true;
+v.setAttribute('controlslist', 'nodownload nofullscreen noremoteplayback');
+
+lbMedia.appendChild(v);
+try { v.play(); } catch (e) {}
+
 }
 
         }
@@ -1354,6 +1359,7 @@
   </script>
 </body>
 </html>
+
 
 
 
