@@ -97,6 +97,60 @@
       box-shadow: 0 0 10px rgba(255, 59, 129, 0.7);
     }
 
+    /* ===== TOP SECTIONS NAV (NEW) ===== */
+    .topnav-wrap {
+      position: sticky;
+      top: 10px;
+      z-index: 30;
+      margin: -6px 0 18px;
+    }
+    .topnav {
+      display: flex;
+      gap: 8px;
+      padding: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      background: rgba(5, 5, 14, 0.72);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .topnav::-webkit-scrollbar { display: none; }
+
+    .topnav-btn {
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(18, 18, 28, 0.75);
+      color: var(--text-muted);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      cursor: pointer;
+      white-space: nowrap;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topnav-btn:hover {
+      border-color: rgba(255, 59, 129, 0.35);
+      background: rgba(18, 18, 28, 0.95);
+      color: #ffd4e6;
+    }
+    .topnav-btn.active {
+      background: rgba(255,59,129,0.20);
+      border-color: rgba(255, 59, 129, 0.85);
+      color: #ffd4e6;
+      box-shadow: 0 0 20px rgba(255,59,129,0.25);
+    }
+
+    /* view logic */
+    [data-section] { display: block; }
+    body[data-view="video"] [data-section]:not([data-section="video"]) { display: none; }
+    body[data-view="photo"] [data-section]:not([data-section="photo"]) { display: none; }
+    body[data-view="contacts"] [data-section]:not([data-section="contacts"]) { display: none; }
+
     /* HERO */
     .hero {
       border-radius: var(--radius-xl);
@@ -140,18 +194,7 @@
     .hero-text .muted { color: var(--text-muted); font-size: 14px; }
     .hero-text .strong { color: #ffffff; font-weight: 650; }
 
-    .hero-text .hint {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #ffd4e6;
-      font-weight: 550;
-      margin-top: 2px;
-    }
-
-    .hero-text .hint .arrow { font-size: 16px; opacity: 0.95; }
-
-    /* НИЖНЯЯ ПОДСКАЗКА В HERO (перенесено вниз и сделано заметнее) */
+    /* НИЖНЯЯ ПОДСКАЗКА В HERO */
     .hero-bottom-hint {
       margin-top: auto;
       display: inline-flex;
@@ -297,6 +340,33 @@
     }
 
     .section-title { font-size: 17px; font-weight: 500; }
+
+    /* ===== BIG ACCENT SECTION TITLE (like "ПРИМЕРЫ РАБОТ") ===== */
+    .section-title-accent {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--accent);
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 750;
+      letter-spacing: 0.02em;
+      line-height: 1.12;
+    }
+    .section-title-accent .section-icon {
+      width: 22px;
+      height: 22px;
+      display: inline-block;
+      flex: 0 0 auto;
+      opacity: 0.95;
+      transform: translateY(1px);
+    }
+    .section-title-accent .section-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      stroke: currentColor;
+      fill: none;
+    }
 
     .section-subtitle {
       font-size: 12px;
@@ -548,6 +618,7 @@
       header { flex-direction: column; align-items: flex-start; }
       .services { grid-template-columns: 1fr; }
       .preview-frame { min-height: 380px; }
+      .topnav-wrap { top: 8px; }
     }
 
     @media (max-width: 600px) {
@@ -555,6 +626,9 @@
       .hero { padding: 16px 14px; gap: 14px; }
       .hero-left h2 { font-size: 23px; }
       .photo-grid .gallery-item { height: 290px; }
+      .topnav { padding: 9px; }
+      .topnav-btn { padding: 10px 12px; font-size: 13px; }
+      .section-title-accent .section-icon { width: 20px; height: 20px; }
     }
 
     /* ===== Lightbox / Viewer ===== */
@@ -702,7 +776,7 @@
   </style>
 </head>
 
-<body>
+<body data-view="all">
   <div class="page">
     <header>
       <div class="brand">
@@ -718,9 +792,19 @@
       </div>
     </header>
 
+    <!-- NEW: верхние разделы -->
+    <div class="topnav-wrap" aria-label="Разделы">
+      <div class="topnav">
+        <button class="topnav-btn active" type="button" data-view-btn="all">Всё</button>
+        <button class="topnav-btn" type="button" data-view-btn="video">🎞 Видео примеры</button>
+        <button class="topnav-btn" type="button" data-view-btn="photo">📸 Фото примеры</button>
+        <button class="topnav-btn" type="button" data-view-btn="contacts">✉ Контакты</button>
+      </div>
+    </div>
+
     <main>
       <!-- HERO -->
-      <section class="hero">
+      <section class="hero" data-section="hero">
         <div class="hero-left">
           <h2>
             <span class="accent">ПРИМЕРЫ РАБОТ</span><br>
@@ -763,7 +847,6 @@
             </div>
           </div>
 
-          <!-- ПЕРЕНЕСЕНО ВНИЗ HERO -->
           <div class="hero-bottom-hint">
             <span>Примеры — ниже</span>
             <span class="arrow">↓</span>
@@ -796,9 +879,19 @@
       </section>
 
       <!-- Фото -->
-      <section class="section">
+      <section class="section" data-section="photo" id="photoSection">
         <div class="section-header">
-          <div class="section-title">📸 Фото-примеры</div>
+          <div class="section-title section-title-accent">
+            <span class="section-icon" aria-hidden="true">
+              <!-- minimal camera -->
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 7h-3.2a2 2 0 0 1-1.6-.8l-1-1.4A2 2 0 0 0 12.6 4H11.4a2 2 0 0 0-1.6.8l-1 1.4A2 2 0 0 1 7.2 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"/>
+                <circle cx="12" cy="13" r="3.2"/>
+              </svg>
+            </span>
+            Фото-примеры
+          </div>
+
           <div class="section-subtitle">
             Статичные примеры. По клику — просмотр на весь экран.
           </div>
@@ -888,9 +981,20 @@
       </section>
 
       <!-- GIF -->
-      <section class="section">
+      <section class="section" data-section="video" id="videoSection">
         <div class="section-header">
-          <div class="section-title">🎞 GIF/Видео-примеры</div>
+          <!-- CHANGED: как "Фото-примеры": большой шрифт + акцент + минималистичная иконка видео -->
+          <div class="section-title section-title-accent">
+            <span class="section-icon" aria-hidden="true">
+              <!-- minimal video/film icon -->
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="6.5" width="14" height="11" rx="2"/>
+                <path d="M17 10l4-2v8l-4-2z"/>
+              </svg>
+            </span>
+            GIF/Видео-примеры
+          </div>
+
           <div class="section-subtitle">
             Табы внутри карточки: Standard / Deep / Hard. По клику — просмотр на весь экран со стрелками.
           </div>
@@ -1136,7 +1240,7 @@
       </section>
 
       <!-- Формат работы -->
-      <section class="section">
+      <section class="section" data-section="format">
         <div class="section-header">
           <div class="section-title">Формат работы</div>
           <div class="section-subtitle">
@@ -1168,6 +1272,52 @@
             <div class="card-footer-note">
               Если что-то снова “не открывается” — обычно это 1 ошибка JS из-за кривой вставки.
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Контакты -->
+      <section class="section" data-section="contacts" id="contactsSection">
+        <div class="section-header">
+          <div class="section-title">✉ Контакты</div>
+          <div class="section-subtitle">
+            Быстрые ссылки (тот же набор, без изменения твоих ссылок).
+          </div>
+        </div>
+
+        <div class="services">
+          <div class="card">
+            <h3>Написать</h3>
+            <p>Основной контакт.</p>
+            <div class="order-row">
+              <a href="https://t.me/Maxim_photoshop" class="btn-main" target="_blank" rel="noopener">
+                <span>✉</span>
+                <span>Написать в&nbsp;Telegram</span>
+              </a>
+            </div>
+            <div class="card-footer-note">Обычно отвечаю в Telegram.</div>
+          </div>
+
+          <div class="card">
+            <h3>Отзывы / канал</h3>
+            <p>Ссылки на отзывы и канал.</p>
+            <div class="cta-links">
+              <a href="https://t.me/privatps_otziv" class="btn-main btn-secondary" target="_blank" rel="noopener">
+                <span>★</span>
+                <span>Отзывы Telegram</span>
+              </a>
+
+              <a href="https://vk.com/topic-218088183_49194635" class="btn-main btn-secondary" target="_blank" rel="noopener">
+                <span>VK</span>
+                <span>Отзывы Вконтакте</span>
+              </a>
+
+              <a href="https://t.me/+ntKxGiALSgE0OGEy" class="btn-main btn-secondary" target="_blank" rel="noopener">
+                <span>📣</span>
+                <span>Канал Telegram</span>
+              </a>
+            </div>
+            <div class="card-footer-note">Всё как в hero, просто вынесено отдельно.</div>
           </div>
         </div>
       </section>
@@ -1204,6 +1354,52 @@
   <script>
     document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
     document.addEventListener('dragstart', function (e) { e.preventDefault(); });
+  </script>
+
+  <!-- JS для верхних разделов -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const btns = Array.from(document.querySelectorAll('[data-view-btn]'));
+      const body = document.body;
+
+      const sectionMap = {
+        all: null,
+        video: document.getElementById('videoSection'),
+        photo: document.getElementById('photoSection'),
+        contacts: document.getElementById('contactsSection'),
+      };
+
+      function setActiveBtn(view) {
+        btns.forEach(b => b.classList.toggle('active', b.dataset.viewBtn === view));
+      }
+
+      function setView(view, pushHash = true) {
+        body.setAttribute('data-view', view);
+        setActiveBtn(view);
+
+        if (pushHash) {
+          const hash = view === 'all' ? '' : ('#' + view);
+          if (hash) history.replaceState(null, '', hash);
+          else history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+
+        const target = sectionMap[view];
+        if (view === 'all') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else if (target) {
+          const y = target.getBoundingClientRect().top + window.scrollY - 90;
+          window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+        }
+      }
+
+      btns.forEach(btn => {
+        btn.addEventListener('click', () => setView(btn.dataset.viewBtn, true));
+      });
+
+      const h = (location.hash || '').replace('#','').trim();
+      if (h === 'video' || h === 'photo' || h === 'contacts') setView(h, false);
+      else setView('all', false);
+    });
   </script>
 
   <!-- JS: карусели (hero + фото) -->
@@ -1255,7 +1451,7 @@
     });
   </script>
 
-  <!-- JS: GIF tabs + arrows (внутри карточки) -->
+  <!-- JS: GIF tabs + arrows -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       document.querySelectorAll('.gif-variant').forEach(card => {
@@ -1350,7 +1546,7 @@
           v.loop = true;
           v.muted = true;
           v.playsInline = true;
-          v.controls = false; // без элементов управления
+          v.controls = false;
           lbMedia.appendChild(v);
           try { v.play(); } catch (e) {}
         }
@@ -1360,7 +1556,6 @@
         lbNext.classList.toggle('is-hidden', !showNav);
       }
 
-      // ✅ КЛЮЧЕВОЕ: тут и фото-карусели, и GIF-табы собираются в items
       function openLightboxFromNode(node) {
         items = [];
         currentIndex = 0;
@@ -1445,7 +1640,6 @@
         if (e.key === 'ArrowLeft') prev();
       });
 
-      // Свайп на телефоне
       let touchX = 0;
       let touchY = 0;
       let tracking = false;
@@ -1476,7 +1670,6 @@
       }, { passive: true });
 
       function bindMediaClicks(root) {
-        // фото
         root.querySelectorAll('.gallery-media img').forEach((img) => {
           img.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -1484,7 +1677,6 @@
           });
         });
 
-        // видео внутри обычных каруселей (hero)
         root.querySelectorAll('.preview-frame video').forEach((vid) => {
           vid.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -1492,7 +1684,6 @@
           });
         });
 
-        // GIF/видео внутри GIF карточек
         root.querySelectorAll('.gif-variant-media video').forEach((vid) => {
           vid.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -1506,6 +1697,3 @@
   </script>
 </body>
 </html>
-
-
-
