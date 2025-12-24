@@ -97,7 +97,7 @@
       box-shadow: 0 0 10px rgba(255, 59, 129, 0.7);
     }
 
-    /* ===== TOP SECTIONS NAV (NEW) ===== */
+    /* ===== TOP SECTIONS NAV ===== */
     .topnav-wrap {
       position: sticky;
       top: 10px;
@@ -194,7 +194,6 @@
     .hero-text .muted { color: var(--text-muted); font-size: 14px; }
     .hero-text .strong { color: #ffffff; font-weight: 650; }
 
-    /* НИЖНЯЯ ПОДСКАЗКА В HERO */
     .hero-bottom-hint {
       margin-top: auto;
       display: inline-flex;
@@ -341,7 +340,7 @@
 
     .section-title { font-size: 17px; font-weight: 500; }
 
-    /* ===== BIG ACCENT SECTION TITLE (like "ПРИМЕРЫ РАБОТ") ===== */
+    /* BIG ACCENT SECTION TITLE */
     .section-title-accent {
       display: inline-flex;
       align-items: center;
@@ -425,6 +424,34 @@
       color: var(--text-muted);
       font-size: 11px;
       white-space: nowrap;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* NEW: action pills area */
+    .meta-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex: 0 0 auto;
+    }
+
+    .pill-order {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 59, 129, 0.16);
+      border: 1px solid rgba(255, 59, 129, 0.65);
+      color: #ffd4e6;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      white-space: nowrap;
+      box-shadow: 0 0 18px rgba(255,59,129,0.14);
+    }
+    .pill-order:hover {
+      background: rgba(255, 59, 129, 0.24);
+      border-color: rgba(255, 59, 129, 0.9);
+      text-decoration: none;
     }
 
     .media-rows {
@@ -433,7 +460,7 @@
       gap: 16px;
     }
 
-    /* Фото-блок: НЕ ТРОГАЮ */
+    /* Фото-блок */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -443,7 +470,7 @@
     .photo-grid .gallery-media { height: 100%; }
     .photo-grid .gallery-media img { object-fit: contain !important; background: #000; }
 
-    /* GIF-блок: как верхний (3/4) */
+    /* GIF-блок */
     .gif-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -469,7 +496,6 @@
       background: #000;
     }
 
-    /* стрелки внутри GIF-карточки */
     .gif-arrow {
       position: absolute;
       top: 50%;
@@ -528,11 +554,20 @@
       background: rgba(5, 5, 14, 0.96);
       border-top: 1px solid rgba(255, 255, 255, 0.04);
       display: grid;
-      gap: 4px;
+      gap: 6px;
     }
 
     .gif-meta-title { font-weight: 500; color: var(--text-main); }
     .gif-meta-desc { color: var(--text-muted); font-size: 12px; }
+
+    /* NEW: actions row inside gif meta */
+    .gif-meta-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 2px;
+    }
 
     .services {
       display: grid;
@@ -578,7 +613,7 @@
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    /* Карусели (hero + фото) */
+    /* Carousels */
     .carousel { position: relative; width: 100%; height: 100%; }
     .carousel-slide { width: 100%; height: 100%; display: none; }
     .carousel-slide.active { display: block; }
@@ -631,7 +666,7 @@
       .section-title-accent .section-icon { width: 20px; height: 20px; }
     }
 
-    /* ===== Lightbox / Viewer ===== */
+    /* Lightbox */
     body.lb-open { overflow: hidden; }
 
     .lightbox {
@@ -759,7 +794,6 @@
 
     .lb-nav.is-hidden { display: none; }
 
-    /* подсказка что можно открыть */
     .gallery-media img,
     .gallery-media video,
     .gif-variant-media video,
@@ -792,7 +826,6 @@
       </div>
     </header>
 
-    <!-- NEW: верхние разделы -->
     <div class="topnav-wrap" aria-label="Разделы">
       <div class="topnav">
         <button class="topnav-btn active" type="button" data-view-btn="all">Всё</button>
@@ -883,7 +916,6 @@
         <div class="section-header">
           <div class="section-title section-title-accent">
             <span class="section-icon" aria-hidden="true">
-              <!-- minimal camera -->
               <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M20 7h-3.2a2 2 0 0 1-1.6-.8l-1-1.4A2 2 0 0 0 12.6 4H11.4a2 2 0 0 0-1.6.8l-1 1.4A2 2 0 0 1 7.2 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"/>
                 <circle cx="12" cy="13" r="3.2"/>
@@ -920,7 +952,10 @@
                   <div class="gallery-meta-main">Пример обработки 1</div>
                   <div class="gallery-meta-type">статичное фото</div>
                 </div>
-                <div class="pill-dark">Фото</div>
+                <div class="meta-actions">
+                  <a class="pill-order" href="https://t.me/Maxim_photoshop" target="_blank" rel="noopener">Заказать</a>
+                  <div class="pill-dark">Фото</div>
+                </div>
               </div>
             </article>
 
@@ -948,7 +983,10 @@
                   <div class="gallery-meta-main">Пример обработки 2</div>
                   <div class="gallery-meta-type">статичное фото</div>
                 </div>
-                <div class="pill-dark">Фото</div>
+                <div class="meta-actions">
+                  <a class="pill-order" href="https://t.me/Maxim_photoshop" target="_blank" rel="noopener">Заказать</a>
+                  <div class="pill-dark">Фото</div>
+                </div>
               </div>
             </article>
 
@@ -973,20 +1011,21 @@
                   <div class="gallery-meta-main">Пример обработки 3</div>
                   <div class="gallery-meta-type">статичное фото</div>
                 </div>
-                <div class="pill-dark">Фото</div>
+                <div class="meta-actions">
+                  <a class="pill-order" href="https://t.me/Maxim_photoshop" target="_blank" rel="noopener">Заказать</a>
+                  <div class="pill-dark">Фото</div>
+                </div>
               </div>
             </article>
           </div>
         </div>
       </section>
 
-      <!-- GIF -->
+      <!-- GIF / Видео -->
       <section class="section" data-section="video" id="videoSection">
         <div class="section-header">
-          <!-- CHANGED: как "Фото-примеры": большой шрифт + акцент + минималистичная иконка видео -->
           <div class="section-title section-title-accent">
             <span class="section-icon" aria-hidden="true">
-              <!-- minimal video/film icon -->
               <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="3" y="6.5" width="14" height="11" rx="2"/>
                 <path d="M17 10l4-2v8l-4-2z"/>
@@ -1003,7 +1042,7 @@
         <div class="media-rows">
           <div class="gif-grid">
 
-            <!-- CARD 1 (Пример 1) -->
+            <!-- CARD 1 -->
             <article class="gallery-item gif-variant">
               <div class="gallery-media gif-variant-media">
                 <button class="gif-arrow prev" type="button" aria-label="Назад">&#10094;</button>
@@ -1028,10 +1067,14 @@
               <div class="gif-meta-wide">
                 <div class="gif-meta-title">Пример 1 — Standard</div>
                 <div class="gif-meta-desc">1cum.mp4</div>
+                <div class="gif-meta-actions">
+                  <a class="pill-order" href="https://t.me/Maxim_photoshop" target="_blank" rel="noopener">Заказать</a>
+                  <div class="pill-dark">Видео</div>
+                </div>
               </div>
             </article>
 
-            <!-- CARD 2 (Пример 2) -->
+            <!-- CARD 2 -->
             <article class="gallery-item gif-variant">
               <div class="gallery-media gif-variant-media">
                 <button class="gif-arrow prev" type="button" aria-label="Назад">&#10094;</button>
@@ -1064,10 +1107,14 @@
               <div class="gif-meta-wide">
                 <div class="gif-meta-title">Пример 2 — Standard</div>
                 <div class="gif-meta-desc">1cum.mp4</div>
+                <div class="gif-meta-actions">
+                  <a class="pill-order" href="https://t.me/Maxim_photoshop" target="_blank" rel="noopener">Заказать</a>
+                  <div class="pill-dark">Видео</div>
+                </div>
               </div>
             </article>
 
-            <!-- CARD 3 (Пример 3) -->
+            <!-- CARD 3 -->
             <article class="gallery-item gif-variant">
               <div class="gallery-media gif-variant-media">
                 <button class="gif-arrow prev" type="button" aria-label="Назад">&#10094;</button>
@@ -1092,10 +1139,14 @@
               <div class="gif-meta-wide">
                 <div class="gif-meta-title">Пример 3 — Standard</div>
                 <div class="gif-meta-desc">1cum.mp4</div>
+                <div class="gif-meta-actions">
+                  <a class="pill-order" href="https://t.me/Maxim_photoshop" target="_blank" rel="noopener">Заказать</a>
+                  <div class="pill-dark">Видео</div>
+                </div>
               </div>
             </article>
 
-            <!-- CARD 4 (Пример 4) -->
+            <!-- CARD 4 -->
             <article class="gallery-item gif-variant">
               <div class="gallery-media gif-variant-media">
                 <button class="gif-arrow prev" type="button" aria-label="Назад">&#10094;</button>
@@ -1120,10 +1171,14 @@
               <div class="gif-meta-wide">
                 <div class="gif-meta-title">Пример 4 — Standard</div>
                 <div class="gif-meta-desc">1cum.mp4</div>
+                <div class="gif-meta-actions">
+                  <a class="pill-order" href="https://t.me/Maxim_photoshop" target="_blank" rel="noopener">Заказать</a>
+                  <div class="pill-dark">Видео</div>
+                </div>
               </div>
             </article>
 
-            <!-- CARD 5 (Пример 5) -->
+            <!-- CARD 5 -->
             <article class="gallery-item gif-variant">
               <div class="gallery-media gif-variant-media">
                 <button class="gif-arrow prev" type="button" aria-label="Назад">&#10094;</button>
@@ -1148,10 +1203,14 @@
               <div class="gif-meta-wide">
                 <div class="gif-meta-title">Пример 5 — Standard</div>
                 <div class="gif-meta-desc">1cum.mp4</div>
+                <div class="gif-meta-actions">
+                  <a class="pill-order" href="https://t.me/Maxim_photoshop" target="_blank" rel="noopener">Заказать</a>
+                  <div class="pill-dark">Видео</div>
+                </div>
               </div>
             </article>
 
-            <!-- CARD 6 (Пример 6) -->
+            <!-- CARD 6 -->
             <article class="gallery-item gif-variant">
               <div class="gallery-media gif-variant-media">
                 <button class="gif-arrow prev" type="button" aria-label="Назад">&#10094;</button>
@@ -1176,10 +1235,14 @@
               <div class="gif-meta-wide">
                 <div class="gif-meta-title">Пример 6 — Standard</div>
                 <div class="gif-meta-desc">1cum.mp4</div>
+                <div class="gif-meta-actions">
+                  <a class="pill-order" href="https://t.me/Maxim_photoshop" target="_blank" rel="noopener">Заказать</a>
+                  <div class="pill-dark">Видео</div>
+                </div>
               </div>
             </article>
 
-            <!-- CARD 7 (Пример 7) -->
+            <!-- CARD 7 -->
             <article class="gallery-item gif-variant">
               <div class="gallery-media gif-variant-media">
                 <button class="gif-arrow prev" type="button" aria-label="Назад">&#10094;</button>
@@ -1204,10 +1267,14 @@
               <div class="gif-meta-wide">
                 <div class="gif-meta-title">Пример 7 — Standard</div>
                 <div class="gif-meta-desc">1cum.mp4</div>
+                <div class="gif-meta-actions">
+                  <a class="pill-order" href="https://t.me/Maxim_photoshop" target="_blank" rel="noopener">Заказать</a>
+                  <div class="pill-dark">Видео</div>
+                </div>
               </div>
             </article>
 
-            <!-- CARD 8 (Пример 8) -->
+            <!-- CARD 8 -->
             <article class="gallery-item gif-variant">
               <div class="gallery-media gif-variant-media">
                 <button class="gif-arrow prev" type="button" aria-label="Назад">&#10094;</button>
@@ -1232,6 +1299,10 @@
               <div class="gif-meta-wide">
                 <div class="gif-meta-title">Пример 8 — Standard</div>
                 <div class="gif-meta-desc">1cum.mp4</div>
+                <div class="gif-meta-actions">
+                  <a class="pill-order" href="https://t.me/Maxim_photoshop" target="_blank" rel="noopener">Заказать</a>
+                  <div class="pill-dark">Видео</div>
+                </div>
               </div>
             </article>
 
@@ -1356,7 +1427,7 @@
     document.addEventListener('dragstart', function (e) { e.preventDefault(); });
   </script>
 
-  <!-- JS для верхних разделов -->
+  <!-- JS: верхние разделы -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const btns = Array.from(document.querySelectorAll('[data-view-btn]'));
@@ -1496,7 +1567,7 @@
     });
   </script>
 
-  <!-- JS: Lightbox viewer (img + video) + стрелки + свайп -->
+  <!-- JS: Lightbox viewer -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const lb = document.getElementById('lightbox');
